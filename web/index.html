@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Taskroom — Autonomous invoice worker</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<header><a class="brand" href="/">↗ <span>taskroom</span></a><span class="pill">LOCAL SANDBOX <span class="dot"></span></span></header>
+<main>
+<div class="intro"><div><p class="eyebrow">CENTRALIGN AI · ENGINEERING INTERN PROTOTYPE</p><h1>Give it an outcome.<br>Watch the work happen.</h1><p class="subtitle">An invoice worker that acts, checks its work, and knows when to ask.</p></div><div class="intro-note"><span>01 / INVOICE OPERATIONS</span><p>Real file reads.<br>Real ledger writes.<br>Evidence at the finish.</p></div></div>
+<div class="workspace">
+<section class="panel composer"><div class="section-title"><span class="number">01</span><h2>The task</h2><span class="tag">YOU → WORKER</span></div>
+<label for="request">What should the worker complete?</label><textarea id="request" rows="4">Find the latest invoice from Acme, extract the amount and due date, and enter it into the ledger.</textarea>
+<div class="examples"><button data-task="Find the latest invoice from Acme and enter it into the ledger.">Latest invoice</button><button data-task="Import all unpaid invoices from Acme into the ledger.">Batch import</button><button data-task="Record the latest invoice from Globex in the ledger.">Approval pause</button><button data-task="Record the latest invoice from Vertex in the ledger.">Missing data</button></div>
+<div class="options"><div><label for="mode">Goal interpreter</label><select id="mode"><option value="offline">Offline · bounded rules</option><option value="llm">LLM · configured provider</option></select></div><div><label for="fault">Failure experiment</label><select id="fault"><option value="none">No injected failure</option><option value="read_once">Document timeout, once</option><option value="write_once">Ledger timeout, once</option></select></div></div>
+<button id="run" class="primary">Run task <span>↗</span></button><p class="small">Synthetic company data. Writes ≥ ₹1,00,000 require approval.</p>
+<div class="source-head"><h3>Sandbox mailbox</h3><span>6 documents</span></div><div id="documents"></div>
+</section>
+<section class="panel activity"><div class="section-title"><span class="number">02</span><h2>Execution room</h2><span id="status" class="tag">READY</span></div>
+<div id="summary" class="summary" aria-live="polite">Your next task starts here. Each tool call and observation will appear below.</div>
+<div id="approval" hidden><h3>Review before writing</h3><p>Approve only the invoice snapshot shown below. Any later source change blocks the write.</p><div id="preview"></div><div class="approval-buttons"><button id="approve" class="primary">Approve ledger writes</button><button id="decline" class="secondary">Decline</button></div></div>
+<div id="timeline" class="timeline"><div class="empty"><span>◎</span><p>Understand → Execute → Observe → Adapt → Verify</p><small>A successful tool response is only the beginning.<br>The worker reads the ledger back before marking a task complete.</small></div></div>
+<div id="evidence" hidden><h3>Verified evidence</h3><div id="evidence-items"></div><button id="download" class="secondary">Download audit & evidence JSON ↓</button></div>
+</section>
+</div>
+<section class="panel ledger"><div class="section-title"><span class="number">03</span><h2>Internal invoice ledger</h2><span id="ledger-count" class="tag">0 RECORDS</span></div><div class="table-wrap"><table><thead><tr><th>Invoice / Vendor</th><th>Amount</th><th>Due date</th><th>Source</th><th>Recorded</th></tr></thead><tbody id="ledger"></tbody></table></div></section>
+<section class="history"><h3>Task history</h3><div id="history"></div></section>
+<footer><span>Built for outcomes, with receipts.</span><span>Bounded autonomy · Persistent state · Independent verification</span></footer>
+</main></body></html>
